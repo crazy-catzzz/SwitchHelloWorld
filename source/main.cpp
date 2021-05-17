@@ -1,20 +1,11 @@
-// Include the most common headers from the C standard library
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-// Include the main libnx system header, for Switch development
 #include <switch.h>
 
-// Main program entrypoint
-int main(int argc, char* argv[])
-{
-    // This example uses a text console, as a simple way to output text to the screen.
-    // If you want to write a software-rendered graphics application,
-    //   take a look at the graphics/simplegfx example, which uses the libnx Framebuffer API instead.
-    // If on the other hand you want to write an OpenGL based application,
-    //   take a look at the graphics/opengl set of examples, which uses EGL instead.
-    consoleInit(NULL);
+int main(int argc, char* argv[]) {
+    consoleInit(NULL); //Initialize console
 
     // Configure our supported input layout: a single player with standard controller styles
     padConfigureInput(1, HidNpadStyleSet_NpadStandard);
@@ -27,30 +18,24 @@ int main(int argc, char* argv[])
     printf("Hello World!\n");
 
     // Main loop
-    while (appletMainLoop())
-    {
-        // Scan the gamepad. This should be done once for each frame
-        padUpdate(&pad);
+    while (appletMainLoop()) {
+        padUpdate(&pad); //Scan the gamepad. This should be done once for each frame
 
-        // padGetButtonsDown returns the set of buttons that have been
-        // newly pressed in this frame compared to the previous one
-        u64 kDown = padGetButtonsDown(&pad);
+        u64 kDown = padGetButtonsDown(&pad); //Get button inputs by comparing which buttons were pressed in the current and previous frames
 
-        if (kDown & HidNpadButton_Plus)
-            break; // break in order to return to hbmenu
+        if(kDown & HidNpadButton_Plus)
+            break; //break in order to return to hbmenu
         
         if(kDown & HidNpadButton_A)
             printf("You pressed A!\n");
         if(kDown & HidNpadButton_B)
             printf("You pressed B!\n");
 
-        // Your code goes here
 
-        // Update the console, sending a new frame to the display
-        consoleUpdate(NULL);
+        consoleUpdate(NULL); //Update the console, sending a new frame to the screen
     }
 
-    // Deinitialize and clean up resources used by the console (important!)
-    consoleExit(NULL);
+    
+    consoleExit(NULL); //Deinitialize and clean up resources used by the console (important!)
     return 0;
 }
