@@ -38,6 +38,11 @@ int main(int argc, char* argv[])
 
         if (kDown & HidNpadButton_Plus)
             break; // break in order to return to hbmenu
+        
+        if(kDown & HidNpadButton_A)
+            printf("You pressed A!\n");
+        if(kDown & HidNpadButton_B)
+            printf("You pressed B!\n");
 
         // Your code goes here
 
